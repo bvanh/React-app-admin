@@ -11,6 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.logo{
+  background-image: url(/public/logo512.png) !important;
+  height:30px;
+}
 /* style form-login */
 .ant-form {
   width: 300px !important;

@@ -11,6 +11,7 @@ export default class SiderDemo extends React.Component {
       islogin: true,
       isuser: '',
       ispassword: '',
+      currentuser:'admin'
     };
   }
   onCollapse = collapsed => {
@@ -33,13 +34,14 @@ export default class SiderDemo extends React.Component {
     user.map((item) => {
       if (item.username === isuser && item.password === ispassword) {
         this.setState({
-          islogin: true
+          islogin: true,
+          currentuser:isuser,
         });
       }
     });
   }
   render() {
-    const { islogin } = this.state
+    const { islogin,currentuser } = this.state
     return (
       <div>
         {islogin == false &&
@@ -53,6 +55,7 @@ export default class SiderDemo extends React.Component {
           <Mainboard
             collapsed={this.state.collapsed}
             onCollapse={this.onCollapse.bind(this)}
+            currentuser={currentuser}
           />
         }
       </div>
