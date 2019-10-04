@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+/* style form-login */
+.ant-form {
+  width: 300px !important;
+  margin:10rem auto !important;
+}
+.login-form-button{
+  width: 100%;
+  height:40px !important;
+  margin: .3rem 0;
+}
+.ant-input-affix-wrapper{
+  height:40px !important;
+  margin:.3rem 0 !important;
+}
