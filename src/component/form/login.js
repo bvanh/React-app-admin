@@ -1,6 +1,6 @@
 import { Form, Input, Tooltip, Icon, Button } from 'antd';
 import React from 'react';
-import { OmitProps } from 'antd/lib/transfer/renderListBody';
+
 
 
 export default function LoginForm(props) {
