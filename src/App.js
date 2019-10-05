@@ -8,7 +8,7 @@ export default class SiderDemo extends React.Component {
     this.state = {
       collapsed: false,
       user: data.user,
-      islogin: true,
+      islogin: false,
       isuser: '',
       ispassword: '',
       currentuser:'admin'
@@ -44,7 +44,7 @@ export default class SiderDemo extends React.Component {
     const { islogin,currentuser } = this.state
     return (
       <div>
-        {islogin == false &&
+        {islogin === false &&
           <LoginForm
             getUsername={this.getUsername.bind(this)}
             getPassword={this.getPassword.bind(this)}

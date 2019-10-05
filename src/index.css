@@ -29,3 +29,6 @@ code {
   height:40px !important;
   margin:.3rem 0 !important;
 }
+.avatar{
+  max-width:5rem;
+}

@@ -1,42 +1,33 @@
-import { Table, Divider, Tag } from 'antd';
+import { Table, Divider} from 'antd';
 import React from 'react'
 
 const columns = [
     {
+        title: 'Avatar',
+        dataIndex: 'src',
+        key: 'avatar',
+        render: text => <img className='avatar' src={text}alt='anh demo'/>,
+    },
+    {
         title: 'Name',
-        dataIndex: 'name',
+        dataIndex: 'ten',
         key: 'name',
-        render: text => <a>{text}</a>,
     },
     {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
+        title: 'Location',
+        dataIndex: 'vitri',
+        key: 'localtion',
     },
     {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
+        title: 'Price',
+        dataIndex: 'gia',
+        key: 'price',
+        render: price=><span>{price.toLocaleString()} vnđ</span>
     },
     {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: tags => (
-            <span>
-                {tags.map(tag => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </span>
-        ),
+        title: 'Rate',
+        dataIndex: 'danhgia',
+        key: 'rating',
     },
     {
         title: 'Action',
@@ -50,36 +41,37 @@ const columns = [
         ),
     },
 ];
-
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-];
-export default function Danhsach() {
-    return (
-        <div>
-            <Table
-                columns={columns} dataSource={data}
-            />
-        </div>
-    )
+export default class Danhsach extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            demo:[]
+        }
+    }
+    componentDidMount() {
+        this.getData();
+    }
+    async getData() {
+        try {
+            let response = await fetch('https://raw.githubusercontent.com/bvanh/data-demo-react-app/master/data.json');
+            let responseJson = await response.json();
+            this.setState({
+                data: responseJson.datahotel
+            })
+            console.log(responseJson)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    render() {
+        return (
+            <div>
+                <Table
+                    columns={columns}
+                    dataSource={this.state.data}
+                />
+            </div>
+        )
+    }
 }
