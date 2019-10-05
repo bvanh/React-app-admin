@@ -1,4 +1,5 @@
 import { Table, Divider, Tag } from 'antd';
+import React from 'react'
 
 const columns = [
     {
@@ -42,7 +43,7 @@ const columns = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <a>Invite {record.name}</a>
+                <a>Edit </a>
                 <Divider type="vertical" />
                 <a>Delete</a>
             </span>
@@ -73,7 +74,7 @@ const data = [
         tags: ['cool', 'teacher'],
     },
 ];
-export default function Table() {
+export default function Danhsach() {
     return (
         <div>
             <Table
