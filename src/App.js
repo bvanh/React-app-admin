@@ -8,7 +8,7 @@ export default class SiderDemo extends React.Component {
     this.state = {
       collapsed: false,
       user: data.user,
-      islogin: false,
+      islogin: true,
       isuser: '',
       ispassword: '',
       currentuser: 'admin'
