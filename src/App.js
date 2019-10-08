@@ -18,13 +18,13 @@ export default class SiderDemo extends React.Component {
     this.setState({ collapsed });
   };
   getUsername(e) {
-    const name = e.target.value;
+    const name = e.target.value.split(' ').join('');
     this.setState({
       isuser: name
     })
   }
   getPassword(e) {
-    const password = e.target.value;
+    const password = e.target.value.split(' ').join('');
     this.setState({
       ispassword: password
     })
