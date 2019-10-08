@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/react-app-admin-demo/static/css/main.1bc7fe40.chunk.css",
+    "main.js": "/react-app-admin-demo/static/js/main.965fb1c8.chunk.js",
+    "main.js.map": "/react-app-admin-demo/static/js/main.965fb1c8.chunk.js.map",
+    "runtime-main.js": "/react-app-admin-demo/static/js/runtime-main.5b840ce0.js",
+    "runtime-main.js.map": "/react-app-admin-demo/static/js/runtime-main.5b840ce0.js.map",
+    "static/css/2.7af79932.chunk.css": "/react-app-admin-demo/static/css/2.7af79932.chunk.css",
+    "static/js/2.745c941b.chunk.js": "/react-app-admin-demo/static/js/2.745c941b.chunk.js",
+    "static/js/2.745c941b.chunk.js.map": "/react-app-admin-demo/static/js/2.745c941b.chunk.js.map",
+    "index.html": "/react-app-admin-demo/index.html",
+    "precache-manifest.b302375dc485bd9a2b37a089ab2bc3b4.js": "/react-app-admin-demo/precache-manifest.b302375dc485bd9a2b37a089ab2bc3b4.js",
+    "service-worker.js": "/react-app-admin-demo/service-worker.js",
+    "static/css/2.7af79932.chunk.css.map": "/react-app-admin-demo/static/css/2.7af79932.chunk.css.map",
+    "static/css/main.1bc7fe40.chunk.css.map": "/react-app-admin-demo/static/css/main.1bc7fe40.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5b840ce0.js",
+    "static/css/2.7af79932.chunk.css",
+    "static/js/2.745c941b.chunk.js",
+    "static/css/main.1bc7fe40.chunk.css",
+    "static/js/main.965fb1c8.chunk.js"
+  ]
+}
