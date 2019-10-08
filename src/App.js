@@ -11,7 +11,7 @@ export default class SiderDemo extends React.Component {
       islogin: false,
       isuser: '',
       ispassword: '',
-      currentuser:'admin'
+      currentuser: 'admin'
     };
   }
   onCollapse = collapsed => {
@@ -35,13 +35,13 @@ export default class SiderDemo extends React.Component {
       if (item.username === isuser && item.password === ispassword) {
         this.setState({
           islogin: true,
-          currentuser:isuser,
+          currentuser: isuser,
         });
       }
     });
   }
   render() {
-    const { islogin,currentuser } = this.state
+    const { islogin, currentuser } = this.state
     return (
       <div>
         {islogin === false &&

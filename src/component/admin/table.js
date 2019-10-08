@@ -1,4 +1,4 @@
-import { Table, Divider} from 'antd';
+import { Table, Divider } from 'antd';
 import React from 'react'
 
 const columns = [
@@ -6,7 +6,7 @@ const columns = [
         title: 'Avatar',
         dataIndex: 'src',
         key: 'avatar',
-        render: text => <img className='avatar' src={text}alt='anh demo'/>,
+        render: text => <img className='avatar' src={text} alt='anh demo' />,
     },
     {
         title: 'Name',
@@ -22,7 +22,7 @@ const columns = [
         title: 'Price',
         dataIndex: 'gia',
         key: 'price',
-        render: price=><span>{price.toLocaleString()} vnđ</span>
+        render: price => <span>{price.toLocaleString()} vnđ</span>
     },
     {
         title: 'Rate',
@@ -34,9 +34,9 @@ const columns = [
         key: 'action',
         render: (text, record) => (
             <span>
-                <a>Edit </a>
+                <a href='/'>Edit </a>
                 <Divider type="vertical" />
-                <a>Delete</a>
+                <a href='/'>Delete</a>
             </span>
         ),
     },
@@ -46,7 +46,7 @@ export default class Danhsach extends React.Component {
         super(props);
         this.state = {
             data: [],
-            demo:[]
+            demo: []
         }
     }
     componentDidMount() {
