@@ -1,5 +1,6 @@
 import { Table, Divider, Popconfirm } from 'antd';
 import React from 'react'
+import axios from 'axios';
 export default class Danhsach extends React.Component {
     constructor(props) {
         super(props);
@@ -34,49 +35,38 @@ export default class Danhsach extends React.Component {
             {
                 title: 'Action',
                 key: 'action',
-                render: (text, record) => (
-                    <span>
-                        <a href='/'>Edit </a>
-                        <Divider type="vertical" />
-                        <a href='/'>Delete</a>
-                    </span>
-                ),
-            },
-            {
-                title: 'operation',
-                dataIndex: 'operation',
                 render: (text, record) =>
                     this.state.data.length >= 1 ? (
-                        <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
-                            <a>Delete</a>
-                        </Popconfirm>
+                        <span>
+                            <a href='/'>Edit </a>
+                            <Divider type="vertical" />
+                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
+                                <a>Delete</a>
+                            </Popconfirm>
+                        </span>
                     ) : null,
             },
         ];
         this.state = {
             data: [],
-            demo: []
         }
     }
     handleDelete = id => {
-        fetch('https://jsonplaceholder.typicode.com/posts/' + id, {
-            method: 'DELETE'
-        })
-    }
-    componentDidMount() {
-        this.getData();
-    }
-    async getData() {
-        try {
-            let response = await fetch('https://raw.githubusercontent.com/bvanh/data-demo-react-app/master/data.json');
-            let responseJson = await response.json();
-            this.setState({
-                data: responseJson.datahotel
+        axios.delete(`https://data-demo-react-app.herokuapp.com/datahotel/` + id)
+        const dataSource = [...this.state.data];
+        this.setState({ data: dataSource.filter(item => item.id !== id) });
+
+    };
+    componentWillMount() {
+        axios.get(`https://data-demo-react-app.herokuapp.com/datahotel`)
+            .then(res => {
+                const hotels = res.data;
+                this.setState({
+                    data: hotels
+                });
             })
-            console.log(responseJson)
-        } catch (error) {
-            console.error(error);
-        }
+            .catch(error => console.log(error));
+
     }
     render() {
         const columns = this.columns.map(col => {
