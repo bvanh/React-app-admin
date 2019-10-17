@@ -1,6 +1,7 @@
 import { Table, Divider, Popconfirm } from 'antd';
 import React from 'react'
 import axios from 'axios';
+import db from 'firestore'
 export default class Danhsach extends React.Component {
     constructor(props) {
         super(props);
@@ -58,15 +59,12 @@ export default class Danhsach extends React.Component {
 
     };
     componentWillMount() {
-        axios.get(`https://data-demo-react-app.herokuapp.com/datahotel`)
-            .then(res => {
-                const hotels = res.data;
-                this.setState({
-                    data: hotels
-                });
-            })
-            .catch(error => console.log(error));
-
+        db.collection("documents")
+            .get()
+            .then(querySnapshot => {
+                const data = querySnapshot.docs.map(doc => doc.data());
+                console.log(data);
+            });
     }
     render() {
         const columns = this.columns.map(col => {

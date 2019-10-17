@@ -1,13 +1,33 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Button, Upload, Input } from 'antd';
 import Danhsach from '../admin/table';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-
-
 export default function Mainboard(props) {
-    const { currentuser } = props
+    const { currentuser, newproducts } = props
+    const fileList = [
+        {
+            uid: '-1',
+            name: 'xxx.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+            uid: '-2',
+            name: 'yyy.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+    ];
+    
+    const demo = {
+        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+        listType: 'picture',
+        defaultFileList: [...fileList],
+    };
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <Sider collapsible
@@ -40,14 +60,42 @@ export default function Mainboard(props) {
             </Sider>
             <Layout>
                 <Header style={{ background: '#fff', padding: 0 }} />
-                <Content style={{ margin: '0 16px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Danh sách hotel</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                        <Danhsach />
-                    </div>
-                </Content>
+                {newproducts ?
+                    (
+                        <Content style={{ margin: '0 16px' }}>
+                            <Breadcrumb style={{ margin: '16px 0' }}>
+                                <Breadcrumb.Item>Thêm mới</Breadcrumb.Item>
+                            </Breadcrumb>
+                            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                                Tên <Input placeholder="Nhập tên hotel" /><br />
+                                Vị trí <Input placeholder="Nhập vị trí hotel" /><br />
+                                Đánh giá <Input placeholder="Nhập đánh giá hotel" /><br />
+                                Giá <Input placeholder="Nhập giá hotel" /><br />
+                                <div>
+                                    Thêm ảnh<br/>
+                                    <Upload {...demo}>
+                                        <Button>
+                                            <Icon type="upload" /> Upload
+      </Button>
+                                    </Upload>
+                                    <br />
+                                </div>,
+                        </div>
+                        </Content>
+                    )
+                    :
+                    (
+                        <Content style={{ margin: '0 16px' }}>
+                            <Breadcrumb style={{ margin: '16px 0' }}>
+                                <Breadcrumb.Item>Danh sách hotel</Breadcrumb.Item>
+                            </Breadcrumb>
+                            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                                <Button type="primary" onClick={props.themmoi}>Thêm mới</Button>
+                                <Danhsach />
+                            </div>
+                        </Content>
+                    )
+                }
                 <Footer style={{ textAlign: 'center' }}>this is Futter</Footer>
             </Layout>
         </Layout>
