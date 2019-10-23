@@ -1,32 +1,27 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb, Icon, Button, Upload, Input, Form } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Button, Upload, Input, Form, message } from 'antd';
 import Danhsach from '../admin/table';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 export default function Mainboard(props) {
     const { currentuser, newproducts } = props
-    const fileList = [
-        {
-            uid: '-1',
-            name: 'xxx.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-        {
-            uid: '-2',
-            name: 'yyy.png',
-            status: 'done',
-            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        },
-    ];
-
     const demo = {
+        name: 'file',
         action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-        listType: 'picture',
-        defaultFileList: [...fileList],
+        headers: {
+            authorization: 'authorization-text',
+        },
+        onChange(info) {
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
     };
     return (
         <Layout style={{ minHeight: '100vh' }}>
@@ -67,11 +62,31 @@ export default function Mainboard(props) {
                                 <Breadcrumb.Item>Thêm mới</Breadcrumb.Item>
                             </Breadcrumb>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                <Form>
-                                    Tên <Input placeholder="Nhập tên hotel" required /><br />
-                                    Vị trí <Input placeholder="Nhập vị trí hotel" required /><br />
-                                    Đánh giá <Input placeholder="Nhập đánh giá hotel" required /><br />
-                                    Giá <Input placeholder="Nhập giá hotel" required /><br />
+                                <Form className='addproduct'>
+                                    Tên
+                                    <Input
+                                        placeholder="Nhập tên hotel"
+                                        name='ten'
+                                        onChange={props.handleChange}
+                                        required />
+                                    <br />
+                                    Vị trí
+                                    <Input
+                                        placeholder="Nhập vị trí hotel"
+                                        name='vitri'
+                                        required />
+                                    <br />
+                                    Đánh giá
+                                    <Input
+                                        placeholder="Nhập đánh giá hotel"
+                                        name='danhgia'
+                                        required />
+                                    <br />
+                                    Giá
+                                    <Input
+                                        placeholder="Nhập giá hotel"
+                                        name='gia'
+                                        required /><br />
                                     <div>
                                         Thêm ảnh<br />
                                         <Upload {...demo}>
@@ -81,9 +96,9 @@ export default function Mainboard(props) {
                                         </Upload>
                                         <br />
                                     </div>
-                                    <Button 
-                                    type="primary"
-                                    htmlType="submit"
+                                    <Button
+                                        type="primary"
+                                        htmlType="submit"
                                     >Submit</Button>
                                 </Form>
                             </div>

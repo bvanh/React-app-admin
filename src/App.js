@@ -12,7 +12,11 @@ export default class SiderDemo extends React.Component {
       isuser: '',
       ispassword: '',
       currentuser: 'admin',
-      newproducts: false
+      newproducts: false,
+      ten: '',
+      gia: '',
+      danhgia: '',
+      vitri: ''
     };
   }
   onCollapse = collapsed => {
@@ -41,14 +45,19 @@ export default class SiderDemo extends React.Component {
       }
     });
   }
-  themmoi(){
+  themmoi() {
     this.setState({
-      newproducts: true 
+      newproducts: true
     })
-    console.log(this.state.newproducts)
+  }
+  handleChange(e){
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+    console.log(this.state.ten)
   }
   render() {
-    const { islogin, currentuser,newproducts } = this.state
+    const { islogin, currentuser, newproducts } = this.state
     return (
       <div>
         {islogin === false &&
@@ -65,6 +74,7 @@ export default class SiderDemo extends React.Component {
             currentuser={currentuser}
             newproducts={newproducts}
             themmoi={this.themmoi.bind(this)}
+            handleChange={this.handleChange.bind(this)}
           />
         }
       </div>

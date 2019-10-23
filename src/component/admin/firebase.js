@@ -2,6 +2,7 @@ const firebase = require("firebase");
 // Required for side-effects
 require("firebase/firestore");
 
+
 const firebaseApp = firebase.initializeApp({
   // copy and paste your firebase credential here
   apiKey: "AIzaSyCxB0ESzcpgJmaEFg6VFeSqC_U4mEhRHuo",

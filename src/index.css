@@ -43,3 +43,6 @@ code {
 .upload-list-inline .ant-upload-animate-leave {
   animation-name: uploadAnimateInlineOut;
 }
+.addproduct{
+  margin:0 !important;
+}
