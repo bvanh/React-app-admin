@@ -1,7 +1,7 @@
 import { Table, Divider, Popconfirm } from 'antd';
 import React from 'react'
 import axios from 'axios';
-import db from 'firestore'
+import db from './firebase'
 export default class Danhsach extends React.Component {
     constructor(props) {
         super(props);
@@ -59,11 +59,17 @@ export default class Danhsach extends React.Component {
 
     };
     componentWillMount() {
-        db.collection("documents")
+        // get the whole collection
+        db
+            .collection('documents')
+            .doc('hotels')
             .get()
-            .then(querySnapshot => {
-                const data = querySnapshot.docs.map(doc => doc.data());
-                console.log(data);
+            .then(doc => {
+                const demo = doc.data();
+                console.log(demo);
+                this.setState({
+                    data: demo.data
+                })
             });
     }
     render() {
