@@ -1,10 +1,12 @@
 import { Table, Divider, Popconfirm } from 'antd';
 import React from 'react'
 import axios from 'axios';
+import app from 'firebase/app';
 import db from './firebase'
 export default class Danhsach extends React.Component {
     constructor(props) {
         super(props);
+        this.db = app.firestore();
         this.columns = [
             {
                 title: 'Avatar',
@@ -60,17 +62,17 @@ export default class Danhsach extends React.Component {
     };
     componentWillMount() {
         // get the whole collection
-        db
+        this.db
             .collection('documents')
-            .doc('hotels')
             .get()
-            .then(doc => {
-                const demo = doc.data();
-                console.log(demo);
+            .then((querySnapshot) => {
+                const demo = querySnapshot.docs.map(doc => doc.data())
                 this.setState({
-                    data: demo.data
+                    data: demo
                 })
-            });
+                console.log(demo)
+
+            })
     }
     render() {
         const columns = this.columns.map(col => {
@@ -79,6 +81,7 @@ export default class Danhsach extends React.Component {
         return (
             <div>
                 <Table
+                    rowKey={record => record.uid}
                     columns={columns}
                     dataSource={this.state.data}
                 />

@@ -1,28 +1,10 @@
-import React from 'react';
-import { Layout, Menu, Breadcrumb, Icon, Button, Upload, Input, Form, message } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Layout, Menu, Breadcrumb, Icon, Button, Upload, Input, Form, message, Modal } from 'antd';
 import Danhsach from '../admin/table';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-
 export default function Mainboard(props) {
-    const { currentuser, newproducts } = props
-    const demo = {
-        name: 'file',
-        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-        headers: {
-            authorization: 'authorization-text',
-        },
-        onChange(info) {
-            if (info.file.status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (info.file.status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully`);
-            } else if (info.file.status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-    };
+    const { currentuser, newproducts, showbtn } = props
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <Sider collapsible
@@ -74,31 +56,45 @@ export default function Mainboard(props) {
                                     <Input
                                         placeholder="Nhập vị trí hotel"
                                         name='vitri'
+                                        onChange={props.handleChange}
                                         required />
                                     <br />
                                     Đánh giá
                                     <Input
                                         placeholder="Nhập đánh giá hotel"
                                         name='danhgia'
+                                        onChange={props.handleChange}
                                         required />
                                     <br />
                                     Giá
                                     <Input
                                         placeholder="Nhập giá hotel"
                                         name='gia'
+                                        onChange={props.handleChange}
                                         required /><br />
                                     <div>
                                         Thêm ảnh<br />
-                                        <Upload {...demo}>
-                                            <Button>
-                                                <Icon type="upload" /> Upload
-                                        </Button>
-                                        </Upload>
+                                        <input
+                                            type='file'
+                                            onChange={props.addimg}
+
+                                        >
+                                        </input>
+
                                         <br />
                                     </div>
                                     <Button
+                                        onClick={props.backTolist}
+                                        type="danger"
+                                        style={{ margin: '0 8px' }}
+                                    >Back</Button>
+                                    <Button
                                         type="primary"
                                         htmlType="submit"
+                                        // onClick={confirm}
+                                        onClick={props.submit2}
+                                        
+                                        disabled={showbtn}
                                     >Submit</Button>
                                 </Form>
                             </div>
@@ -111,7 +107,10 @@ export default function Mainboard(props) {
                                 <Breadcrumb.Item>Danh sách hotel</Breadcrumb.Item>
                             </Breadcrumb>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                <Button type="primary" onClick={props.themmoi}>Thêm mới</Button>
+                                <Button
+                                    style={{ margin: '8px 0' }}
+                                    type="primary"
+                                    onClick={props.themmoi}>Thêm mới</Button>
                                 <Danhsach />
                             </div>
                         </Content>

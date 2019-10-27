@@ -2,7 +2,6 @@ const firebase = require("firebase");
 // Required for side-effects
 require("firebase/firestore");
 
-
 const firebaseApp = firebase.initializeApp({
   // copy and paste your firebase credential here
   apiKey: "AIzaSyCxB0ESzcpgJmaEFg6VFeSqC_U4mEhRHuo",
@@ -16,5 +15,6 @@ const firebaseApp = firebase.initializeApp({
 });
 
 const db = firebaseApp.firestore();
+const storage = firebaseApp.storage();
 
-export default  db ;
+export {  db,storage as default} ;
