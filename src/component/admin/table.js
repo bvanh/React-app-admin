@@ -1,8 +1,9 @@
-import { Table, Divider, Popconfirm } from 'antd';
+import { Layout, Table, Divider, Popconfirm, Breadcrumb, Button } from 'antd';
 import React from 'react'
-import axios from 'axios';
 import app from 'firebase/app';
-import db from './firebase'
+import db from './firebase';
+import { Link,useRouteMatch } from 'react-router-dom'
+const { Content } = Layout;
 export default class Danhsach extends React.Component {
     constructor(props) {
         super(props);
@@ -41,9 +42,9 @@ export default class Danhsach extends React.Component {
                 render: (text, record) =>
                     this.state.data.length >= 1 ? (
                         <span>
-                            <a href='/'>Edit </a>
+                            <Link to={`edit/${record.ten}`}>Edit</Link>
                             <Divider type="vertical" />
-                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
+                            <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.ten)}>
                                 <a>Delete</a>
                             </Popconfirm>
                         </span>
@@ -54,13 +55,21 @@ export default class Danhsach extends React.Component {
             data: [],
         }
     }
-    handleDelete = id => {
-        axios.delete(`https://data-demo-react-app.herokuapp.com/datahotel/` + id)
+    handleDelete = ten => {
+        this.db
+            .collection("documents")
+            .doc(ten)
+            .delete()
+            .then(function () {
+                console.log("Document successfully deleted!");
+            }).catch(function (error) {
+                console.error("Error removing document: ", error);
+            });
         const dataSource = [...this.state.data];
-        this.setState({ data: dataSource.filter(item => item.id !== id) });
+        this.setState({ data: dataSource.filter(item => item.ten !== ten) });
 
     };
-    componentWillMount() {
+    componentDidMount() {
         // get the whole collection
         this.db
             .collection('documents')
@@ -79,13 +88,24 @@ export default class Danhsach extends React.Component {
             return col;
         });
         return (
-            <div>
-                <Table
-                    rowKey={record => record.uid}
-                    columns={columns}
-                    dataSource={this.state.data}
-                />
-            </div>
+            <Content style={{ margin: '0 16px' }}>
+                <Breadcrumb style={{ margin: '16px 0' }}>
+                    <Breadcrumb.Item>Danh sách hotel</Breadcrumb.Item>
+                </Breadcrumb>
+                <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                    <Link to='/add'>
+                        <Button
+                            style={{ margin: '8px 0' }}
+                            type="primary"
+                        >Thêm mới</Button>
+                    </Link>
+                    <Table
+                        rowKey={record => record.uid}
+                        columns={columns}
+                        dataSource={this.state.data}
+                    />
+                </div>
+            </Content>
         )
     }
 }

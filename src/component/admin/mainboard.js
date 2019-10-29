@@ -1,6 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Layout, Menu, Breadcrumb, Icon, Button, Upload, Input, Form, message, Modal } from 'antd';
 import Danhsach from '../admin/table';
+import AddProduct from './creatproduct';
+import Edit from './editproducts';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useParams
+} from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 export default function Mainboard(props) {
@@ -37,85 +47,13 @@ export default function Mainboard(props) {
             </Sider>
             <Layout>
                 <Header style={{ background: '#fff', padding: 0 }} />
-                {newproducts ?
-                    (
-                        <Content style={{ margin: '0 16px' }}>
-                            <Breadcrumb style={{ margin: '16px 0' }}>
-                                <Breadcrumb.Item>Thêm mới</Breadcrumb.Item>
-                            </Breadcrumb>
-                            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                <Form className='addproduct'>
-                                    Tên
-                                    <Input
-                                        placeholder="Nhập tên hotel"
-                                        name='ten'
-                                        onChange={props.handleChange}
-                                        required />
-                                    <br />
-                                    Vị trí
-                                    <Input
-                                        placeholder="Nhập vị trí hotel"
-                                        name='vitri'
-                                        onChange={props.handleChange}
-                                        required />
-                                    <br />
-                                    Đánh giá
-                                    <Input
-                                        placeholder="Nhập đánh giá hotel"
-                                        name='danhgia'
-                                        onChange={props.handleChange}
-                                        required />
-                                    <br />
-                                    Giá
-                                    <Input
-                                        placeholder="Nhập giá hotel"
-                                        name='gia'
-                                        onChange={props.handleChange}
-                                        required /><br />
-                                    <div>
-                                        Thêm ảnh<br />
-                                        <input
-                                            type='file'
-                                            onChange={props.addimg}
-
-                                        >
-                                        </input>
-
-                                        <br />
-                                    </div>
-                                    <Button
-                                        onClick={props.backTolist}
-                                        type="danger"
-                                        style={{ margin: '0 8px' }}
-                                    >Back</Button>
-                                    <Button
-                                        type="primary"
-                                        htmlType="submit"
-                                        // onClick={confirm}
-                                        onClick={props.submit2}
-                                        
-                                        disabled={showbtn}
-                                    >Submit</Button>
-                                </Form>
-                            </div>
-                        </Content>
-                    )
-                    :
-                    (
-                        <Content style={{ margin: '0 16px' }}>
-                            <Breadcrumb style={{ margin: '16px 0' }}>
-                                <Breadcrumb.Item>Danh sách hotel</Breadcrumb.Item>
-                            </Breadcrumb>
-                            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                <Button
-                                    style={{ margin: '8px 0' }}
-                                    type="primary"
-                                    onClick={props.themmoi}>Thêm mới</Button>
-                                <Danhsach />
-                            </div>
-                        </Content>
-                    )
-                }
+                <Router>
+                    <div>
+                        <Route exact path="/" component={Danhsach} />
+                        <Route path="/add" component={AddProduct} />
+                        <Route path="/edit/:id" component={Edit}/>
+                    </div>
+                </Router>
                 <Footer style={{ textAlign: 'center' }}>this is Futter</Footer>
             </Layout>
         </Layout>
