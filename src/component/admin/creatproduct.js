@@ -65,7 +65,7 @@ export default class AddProduct extends React.Component {
         Modal.confirm({
             title: 'Chúc mừng',
             content: 'Bạn đã tạo 1 sản phẩm thành công...',
-            okText:<Link to='/'>ok</Link>,
+            okText:'Xem danh sách',
             cancelText: "Tiếp tục",
             onOk() {
             
