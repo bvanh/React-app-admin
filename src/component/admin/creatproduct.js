@@ -100,7 +100,7 @@ class AddProduct extends React.Component {
         Modal.confirm({
           title: "Chúc mừng",
           content: "Bạn đã tạo 1 sản phẩm thành công...",
-          okText: <Router><Link to='/home'>ok</Link></Router>,
+          okText: <Router><Link to='/home'>Quay lại</Link></Router>,
           cancelText: "Tiếp tục",
           onOk() {
             // this.props.history.push('/home')
