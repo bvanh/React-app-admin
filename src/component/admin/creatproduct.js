@@ -15,7 +15,6 @@ import app from "firebase/app";
 import storage from "./firebase";
 import db from "./firebase";
 import { BrowserRouter as Router, Link, withRouter } from "react-router-dom";
-import { createStore } from "redux";
 const { Content } = Layout;
 class AddProduct extends React.Component {
   constructor(props) {
