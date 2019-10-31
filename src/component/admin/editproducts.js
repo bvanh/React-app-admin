@@ -13,14 +13,13 @@ function getBase64(file) {
         reader.onerror = error => reject(error);
     });
 }
-
 export default class Edit extends React.Component {
     constructor(props) {
         super(props);
         this.storage = app.storage();
         this.db = app.firestore();
         this.state = {
-            url: this.props.match.params.id,
+            id: this.props.match.params.id,
             datadetail: '',
             previewVisible: false,
             previewImage: '',
@@ -44,7 +43,7 @@ export default class Edit extends React.Component {
     componentDidMount() {
         this.db
             .collection('documents')
-            .doc(this.state.url)
+            .doc(this.state.id)
             .get()
             .then((doc) => {
                 const demo = doc.data()
@@ -55,7 +54,6 @@ export default class Edit extends React.Component {
                     danhgia: demo.danhgia,
                     vitri: demo.vitri,
                     previewImage: demo.src,
-                    img: null,
                     fileList: [
                         {
                             uid: '1',
@@ -65,15 +63,15 @@ export default class Edit extends React.Component {
                         },
                     ]
                 })
-
+                console.log(demo)
             })
-
     }
-    handleChange = ({ fileList }) => {
+    handleChange = ({ fileList, file }) => {
         this.setState({
             fileList,
+            img: file.originFileObj
         });
-
+        console.log(this.state.img)
     }
     handlePreview = async file => {
         if (!file.url && !file.preview) {
@@ -92,30 +90,51 @@ export default class Edit extends React.Component {
         })
         console.log(this.state.ten)
     }
-    updateProducts=()=> {
-        const { ten, vitri, gia, danhgia, img } = this.state
-        const uploadTask = storage.ref(`images/${img.name}`).put(img)
-        uploadTask.on('state_changed',
-            () => {
-                storage.ref('images').child(img.name).getDownloadURL().then(url => {
-                    this.db
-                        .collection("documents")
-                        .doc(ten)
-                        .set({
-                            ten: ten,
-                            vitri: vitri,
-                            gia: Number(gia),
-                            danhgia: Number(danhgia),
-                            src: url
-                        })
-                        .then(function () {
-                            console.log("Document successfully update!");
-                        })
-                        .catch(function (error) {
-                            console.error("Error writing document: ", error);
-                        });
+    updateProducts = () => {
+        const { ten, vitri, gia, danhgia, img, previewImage,id } = this.state
+        if (img === null) {
+            this.db
+                .collection("documents")
+                .doc(id)
+                .set({
+                    ten: ten,
+                    vitri: vitri,
+                    gia: Number(gia),
+                    danhgia: Number(danhgia),
+                    src: previewImage,
+                    id:id
                 })
-            });
+                .then(function () {
+                    console.log("Document successfully update!");
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                });
+        } else {
+            const uploadTask = this.storage.ref(`images/${img.name}`).put(img)
+            uploadTask.on('state_changed',
+                () => {
+                    this.storage.ref('images').child(img.name).getDownloadURL().then(url => {
+                        this.db
+                            .collection("documents")
+                            .doc(id)
+                            .set({
+                                ten: ten,
+                                vitri: vitri,
+                                gia: Number(gia),
+                                danhgia: Number(danhgia),
+                                src: url,
+                                id:id
+                            })
+                            .then(function () {
+                                console.log("Document successfully update!");
+                            })
+                            .catch(function (error) {
+                                console.error("Error writing document: ", error);
+                            });
+                    })
+                });
+        }
     }
     render() {
         const { ten, danhgia, gia, vitri, previewVisible, previewImage, fileList } = this.state
@@ -167,11 +186,11 @@ export default class Edit extends React.Component {
                             Thêm ảnh<br />
                             <div className="clearfix">
                                 <Upload
-                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                     listType="picture-card"
                                     fileList={fileList}
                                     onPreview={this.handlePreview}
                                     onChange={this.handleChange}
+                                // customRequest={this.uploadImage}
                                 >
                                     {fileList.length >= 1 ? null : uploadButton}
                                 </Upload>
@@ -181,7 +200,7 @@ export default class Edit extends React.Component {
                             </div>
                             <br />
                         </div>
-                        <Link to='/'>
+                        <Link to='/home'>
                             <Button
                                 type="danger"
                                 style={{ margin: '0 8px' }}

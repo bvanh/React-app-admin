@@ -2,51 +2,64 @@ import React from 'react';
 import Login from './component/admin/login'
 import Mainboard from './component/admin/mainboard';
 import app from 'firebase/app';
-import { Modal } from 'antd'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams, Redirect
+} from "react-router-dom";
 export default class SiderDemo extends React.Component {
   constructor(props) {
     super(props);
-    this.authListener = this.authListener.bind(this);
     this.auth = app.auth();
     this.state = {
       collapsed: false,
-      user: false,
+      user: null,
+      redirect: true
     };
   }
   onCollapse = collapsed => {
     this.setState({ collapsed });
   };
-  componentDidMount() {
-    this.authListener();
+  componentWillMount() {
+    this.auth
+      .onAuthStateChanged(demo => {
+        if (demo) {
+          // User is signed in.
+          this.setState({ user: demo.email });
+          // localStorage.setItem("user", user.uid)
+          console.log(demo)
+        } else {
+          // this.setState({ redirect: false })
+        }
+      });
   }
-  authListener() {
-   let demo= this.auth.currentUser
-   console.log(demo)
-    // .onAuthStateChanged(user=> {
-    //   if (user) {
-    //     // User is signed in.
-    //     // this.setState({ user });
-    //     // localStorage.setItem("user", user.uid)
-    //     console.log(user)
-    //   } else {
-    //     // No user is signed in.
-    // //   }
-    // });
+  logout() {
+    this.auth
+      .signOut()
+    // .then(() =>
+    //   this.setState({
+    //     redirect: false
+    //   })
+    // )
   }
   render() {
-    const {user, newproducts } = this.state
     return (
       <div>
-        {user ?
-          <Mainboard
-            collapsed={this.state.collapsed}
-            onCollapse={this.onCollapse.bind(this)}
-            currentuser={user}
-            newproducts={newproducts}
-          />
-          :
-          <Login />
-        }
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Login} />
+            <Route path="/home" render={() =>
+              <Mainboard
+                collapsed={this.state.collapsed}
+                onCollapse={this.onCollapse.bind(this)}
+                currentuser={this.state.user}
+                logout={this.logout.bind(this)}
+              />} />
+          </Switch>
+        </Router>
       </div>
     );
   }

@@ -1,7 +1,14 @@
 import React from 'react';
 import app from 'firebase/app';
 import { Form, Input, Tooltip, Icon, Button } from 'antd';
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useParams, Redirect
+} from "react-router-dom";
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -11,23 +18,31 @@ export default class Login extends React.Component {
         // this.signup = this.signup.bind(this);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            redirect: false
         }
     }
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
-      }
+    }
     login(e) {
         e.preventDefault();
         this.auth
-        .signInWithEmailAndPassword(this.state.email, this.state.password)
-          .then(u => {})
-          .catch(error => {
-            console.log(error);
-          });
-      }
-    
+            .signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(u => {
+                this.setState({
+                    redirect: true
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     render() {
+        if (this.state.redirect === true) {
+            return <Redirect to='/home' />
+        }
         return (
             <div>
                 <Form>
