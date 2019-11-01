@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, Dropdown } from "antd";
 import Danhsach from "../admin/table";
 import AddProduct from "./creatproduct";
 import Edit from "./editproducts";
@@ -11,39 +11,57 @@ export default function Mainboard(props) {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
-        collapsible
-        collapsed={props.collapsed}
-        onCollapse={props.onCollapse}
+        breakpoint="md"
+        collapsedWidth="0"
       >
-        <div className="logo" />
+        <div className="logo">Admin</div>
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <SubMenu
-            key="sub2"
-            title={
-              <span>
-                <Icon type="user" />
-                <span>{currentuser}</span>
-              </span>
-            }
-          >
-            <Menu.Item key="6" onClick={props.logout}>
-              <Link to="/">Log out</Link>
-            </Menu.Item>
-          </SubMenu>
+        <Menu.Item key="8">
+            <Icon type="home"theme='filled' />
+            <span>Home</span>
+          </Menu.Item>
           <Menu.Item key="9">
-            <Icon type="file" />
-            <span>File</span>
+            <Icon type="area-chart" />
+            <span>Products</span>
+          </Menu.Item>
+          <Menu.Item key="7">
+            <Icon type="idcard"theme='filled' />
+            <span>Users</span>
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout>
-        <Header style={{ background: "#fff", padding: 0 }} />
+        <Header style={{ background: "#fff", padding: 0 }}>
+          <Dropdown
+            overlay={() => (
+              <Menu>
+                <Menu.Item key="0" onClick={props.logout}>
+                  <Link to="/">Log out</Link>
+                </Menu.Item>
+              </Menu>
+            )}
+            trigger={["click"]}
+          >
+            <a
+              className="ant-dropdown-link"
+              href="#"
+              style={{ float: "right", margin: "0 2rem" }}
+            >
+              <Icon type="user" style={{ fontSize: "24px", margin: "5px" }} />
+              <span>{currentuser}</span>
+
+              <Icon type="down" />
+            </a>
+          </Dropdown>
+        </Header>
         <Router>
           <Route path="/home" component={Danhsach} />
           <Route path="/add" component={AddProduct} />
           <Route path="/edit/:id" component={Edit} />
         </Router>
-        <Footer style={{ textAlign: "center" }}>React-app-admin-made-by-Me</Footer>
+        <Footer style={{ textAlign: "center" }}>
+          React-app-admin ©2019 Created by Me
+        </Footer>
       </Layout>
     </Layout>
   );

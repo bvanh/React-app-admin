@@ -15,14 +15,10 @@ export default class SiderDemo extends React.Component {
     super(props);
     this.auth = app.auth();
     this.state = {
-      collapsed: false,
       user: null,
       redirect: true
     };
   }
-  onCollapse = collapsed => {
-    this.setState({ collapsed });
-  };
   componentWillMount() {
     this.auth
       .onAuthStateChanged(demo => {
@@ -53,8 +49,6 @@ export default class SiderDemo extends React.Component {
             <Route exact path="/" component={Login} />
             <Route path="/home" render={() =>
               <Mainboard
-                collapsed={this.state.collapsed}
-                onCollapse={this.onCollapse.bind(this)}
                 currentuser={this.state.user}
                 logout={this.logout.bind(this)}
               />} />

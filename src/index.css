@@ -46,3 +46,15 @@ code {
 .addproduct{
   margin:0 !important;
 }
+.logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin:1rem auto;
+  color:white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+ 
+}
