@@ -96,15 +96,17 @@ class AddProduct extends React.Component {
               });
           });
 
-        Modal.confirm({
-          title: "Chúc mừng",
-          content: "Bạn đã tạo 1 sản phẩm thành công...",
-          okText: <Router><Link to='/home'>Quay lại</Link></Router>,
-          cancelText: "Tiếp tục",
+        Modal.success({
+          content: "Tạo sản phẩm thành công !",
           onOk() {
-            // this.props.history.push('/home')
-          },
-          onCancel() {}
+            this.setState({
+              ten: "",
+              gia: 0,
+              danhgia: 0,
+              vitri: "",
+              img: null
+            });
+          }
         });
       }
     );
@@ -156,7 +158,7 @@ class AddProduct extends React.Component {
               <input type="file" onChange={this.addImg}></input>
               <br />
             </div>
-            <Link to="/home">
+            <Link to="/products">
               <Button type="danger" style={{ margin: "0 8px" }}>
                 Back
               </Button>

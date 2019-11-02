@@ -42,7 +42,7 @@ export default class Danhsach extends React.Component {
         render: (text, record) =>
           this.state.data.length >= 1 ? (
             <span>
-              <Link to={`edit/${record.id}`}>Edit</Link>
+              <Link to={`/products/${record.id}`}>Edit</Link>
               <Divider type="vertical" />
               <Popconfirm
                 title="Sure to delete?"
@@ -95,7 +95,7 @@ export default class Danhsach extends React.Component {
           <Breadcrumb.Item>Danh sách hotel</Breadcrumb.Item>
         </Breadcrumb>
         <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
-          <Link to="/add">
+          <Link to="/create-products">
             <Button style={{ margin: "8px 0" }} type="primary">
               Thêm mới
             </Button>

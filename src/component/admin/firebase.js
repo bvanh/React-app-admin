@@ -1,6 +1,6 @@
 const firebase = require("firebase");
 // Required for side-effects
-require("firebase/firestore");
+// require("firebase/firestore");
 
 const firebaseApp = firebase.initializeApp({
   // copy and paste your firebase credential here

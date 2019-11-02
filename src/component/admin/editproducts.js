@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   Layout,
-  Menu,
   Breadcrumb,
   Icon,
   Button,
   Upload,
   Input,
   Form,
-  message,
   Modal
 } from "antd";
 import app from "firebase/app";
@@ -112,6 +110,10 @@ export default class Edit extends React.Component {
           id: id
         })
         .then(function() {
+          Modal.success({
+            content:'Cập nhật sản phẩm thành công !',
+            onOk() {},
+          });
           console.log("Document successfully update!");
         })
         .catch(function(error) {
@@ -165,7 +167,7 @@ export default class Edit extends React.Component {
     return (
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Thêm mới</Breadcrumb.Item>
+          <Breadcrumb.Item>Thông tin</Breadcrumb.Item>
         </Breadcrumb>
         <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
           <Form className="addproduct">
