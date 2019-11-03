@@ -4,7 +4,7 @@ import Danhsach from "./component/admin/table";
 import AddProduct from "./component/admin/creatproduct";
 import Edit from "./component/admin/editproducts";
 import Home from "./component/admin/home";
-import Login from "./component/form/login";
+import Login from "./component/admin/login";
 import app from "firebase/app";
 import storage from "./component/admin/firebase";
 import db from "./component/admin/firebase";
@@ -22,31 +22,40 @@ export default class Mainboard extends React.Component {
     this.auth = app.auth();
     this.state = {
       user: null,
-      redirect: true
+      redirect: false
     };
   }
   componentWillMount() {
     this.auth.onAuthStateChanged(demo => {
       if (demo) {
         // User is signed in.
-        this.setState({ user: demo.email });
+        this.setState({ 
+          redirect: true,
+          user:demo.email
+         });
         // localStorage.setItem("user", user.uid)
         console.log(demo);
       } else {
-        // this.setState({ redirect: false })
+        this.setState({ redirect: false });
       }
     });
   }
   logout = () => {
-    this.auth.signOut();
-    // .then(() =>
-    //   this.setState({
-    //     redirect: false
-    //   })
-    // )
+    this.auth.signOut().then(() =>
+      this.setState({
+        redirect: false
+      })
+    );
   };
   render() {
-    const { user } = this.state;
+    const { user, redirect } = this.state;
+    if (redirect == false) {
+      return (
+        <Router>
+          <Route path="/" component={Login} />
+        </Router>
+      );
+    }
     return (
       <Layout style={{ minHeight: "100vh" }}>
         <Router>
@@ -54,24 +63,21 @@ export default class Mainboard extends React.Component {
             <div className="logo">Admin</div>
             <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
               <Menu.Item key="8">
-                  <Link
-                    to="/home"
-                    style={{ color: "rgba(255, 255, 255, 0.65)" }}
-                  >
-                    <Icon type="home" theme="filled" />
-                    <span>Home</span>
-                  </Link>
+                <Link to="/" style={{ color: "rgba(255, 255, 255, 0.65)" }}>
+                  <Icon type="home" theme="filled" />
+                  <span>Home</span>
+                </Link>
               </Menu.Item>
               <Menu.Item key="9">
-                  <span>
-                    <Link
-                      to="/products"
-                      style={{ color: "rgba(255, 255, 255, 0.65)" }}
-                    >
-                      <Icon type="area-chart" />
-                      Products
-                    </Link>
-                  </span>
+                <span>
+                  <Link
+                    to="/products"
+                    style={{ color: "rgba(255, 255, 255, 0.65)" }}
+                  >
+                    <Icon type="area-chart" />
+                    Products
+                  </Link>
+                </span>
               </Menu.Item>
               <Menu.Item key="7">
                 <Icon type="idcard" theme="filled" />
@@ -97,15 +103,14 @@ export default class Mainboard extends React.Component {
                   style={{ float: "right", margin: "0 2rem" }}
                 >
                   {/* <Icon type="user" style={{ fontSize: "24px", margin: "5px" }} /> */}
-                  <Avatar style={{ backgroundColor: "#87d068" }} icon="user" />
+                  <Avatar style={{ backgroundColor: "#87d068",margin:'0 5px' }} icon="user" />
                   <span>{user}</span>
 
                   <Icon type="down" style={{ padding: "0 2px" }} />
                 </a>
               </Dropdown>
             </Header>
-
-            <Route path="/home" component={Home} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/products" component={Danhsach} />
             <Route exact path="/create-products" component={AddProduct} />
             <Route path="/products/:id" component={Edit} />

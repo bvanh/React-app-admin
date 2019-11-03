@@ -88,6 +88,13 @@ class AddProduct extends React.Component {
                     src: url,
                     id: docRef.id
                   });
+                this.setState({
+                  ten: "",
+                  gia: 0,
+                  danhgia: 0,
+                  vitri: "",
+                  img: null
+                });
                 console.log("Document written with ID: ", docRef.id);
               })
               .catch(error => {
@@ -98,21 +105,13 @@ class AddProduct extends React.Component {
 
         Modal.success({
           content: "Tạo sản phẩm thành công !",
-          onOk() {
-            this.setState({
-              ten: "",
-              gia: 0,
-              danhgia: 0,
-              vitri: "",
-              img: null
-            });
-          }
+          onOk() {}
         });
       }
     );
   };
   render() {
-    const { showbtn } = this.state;
+    const { showbtn, ten, gia, danhgia, vitri, img } = this.state;
     return (
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
@@ -124,6 +123,7 @@ class AddProduct extends React.Component {
             <Input
               placeholder="Nhập tên hotel"
               name="ten"
+              value={ten}
               onChange={this.handleChange}
               required
             />
@@ -132,6 +132,7 @@ class AddProduct extends React.Component {
             <Input
               placeholder="Nhập vị trí hotel"
               name="vitri"
+              value={vitri}
               onChange={this.handleChange}
               required
             />
@@ -140,6 +141,7 @@ class AddProduct extends React.Component {
             <Input
               placeholder="Nhập đánh giá hotel"
               name="danhgia"
+              value={danhgia}
               onChange={this.handleChange}
               required
             />
@@ -148,6 +150,7 @@ class AddProduct extends React.Component {
             <Input
               placeholder="Nhập giá hotel"
               name="gia"
+              value={gia}
               onChange={this.handleChange}
               required
             />

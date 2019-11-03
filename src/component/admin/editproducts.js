@@ -234,7 +234,7 @@ export default class Edit extends React.Component {
               </div>
               <br />
             </div>
-            <Link to="/home">
+            <Link to="/">
               <Button type="danger" style={{ margin: "0 8px" }}>
                 Back
               </Button>
