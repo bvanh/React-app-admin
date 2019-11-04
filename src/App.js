@@ -115,7 +115,7 @@ export default class Mainboard extends React.Component {
             <Route exact path="/create-products" component={AddProduct} />
             <Route path="/products/:id" component={Edit} />
             <Footer style={{ textAlign: "center" }}>
-              React-app-admin ©2019 Created by Me
+              Tamdaoweb-Admin ©2019 Created by Me
             </Footer>
           </Layout>
         </Router>
