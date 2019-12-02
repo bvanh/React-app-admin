@@ -1,20 +1,10 @@
 import React from "react";
-import {
-  Layout,
-  Menu,
-  Breadcrumb,
-  Icon,
-  Button,
-  Upload,
-  Input,
-  Form,
-  message,
-  Modal
-} from "antd";
+import { Layout, Breadcrumb, Button, Upload, Input, Form, Modal } from "antd";
+import Back from "./backbtn";
 import app from "firebase/app";
 import storage from "./firebase";
 import db from "./firebase";
-import { BrowserRouter as Router, Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 const { Content } = Layout;
 class AddProduct extends React.Component {
   constructor(props) {
@@ -161,11 +151,7 @@ class AddProduct extends React.Component {
               <input type="file" onChange={this.addImg}></input>
               <br />
             </div>
-            <Link to="/products">
-              <Button type="danger" style={{ margin: "0 8px" }}>
-                Back
-              </Button>
-            </Link>
+            <Back />
             <Button
               type="primary"
               htmlType="submit"
@@ -180,4 +166,4 @@ class AddProduct extends React.Component {
     );
   }
 }
-export default AddProduct;
+export default withRouter(AddProduct);

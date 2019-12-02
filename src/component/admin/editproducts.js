@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Layout,
   Breadcrumb,
@@ -7,8 +7,10 @@ import {
   Upload,
   Input,
   Form,
-  Modal
+  Modal,
+  
 } from "antd";
+import Back from "./backbtn";
 import app from "firebase/app";
 import storage from "./firebase";
 import db from "./firebase";
@@ -111,8 +113,8 @@ export default class Edit extends React.Component {
         })
         .then(function() {
           Modal.success({
-            content:'Cập nhật sản phẩm thành công !',
-            onOk() {},
+            content: "Cập nhật sản phẩm thành công !",
+            onOk() {}
           });
           console.log("Document successfully update!");
         })
@@ -231,14 +233,10 @@ export default class Edit extends React.Component {
                     src={previewImage}
                   />
                 </Modal>
-              </div>
+              </div>       
               <br />
             </div>
-            <Link to="/">
-              <Button type="danger" style={{ margin: "0 8px" }}>
-                Back
-              </Button>
-            </Link>
+            <Back />
             <Button
               type="primary"
               htmlType="submit"

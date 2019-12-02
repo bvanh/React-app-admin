@@ -12,8 +12,6 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Switch,
-  Redirect
 } from "react-router-dom";
 const { Header, Footer, Sider } = Layout;
 export default class Mainboard extends React.Component {
@@ -71,7 +69,7 @@ export default class Mainboard extends React.Component {
               <Menu.Item key="9">
                 <span>
                   <Link
-                    to="/products"
+                    to="products"
                     style={{ color: "rgba(255, 255, 255, 0.65)" }}
                   >
                     <Icon type="area-chart" />
